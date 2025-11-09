@@ -107,6 +107,11 @@ db.collection("orders").onSnapshot(
                 // Just update the tab, don't show a popup
                 updateTableBox(tableBox, orderData);
             }
+            if (change.type === "removed") {
+                console.log("Order removed:", tableId);
+                clearTable(tableId); // resets to "Waiting for order..."
+  }
+
         });
     },
     (error) => {
