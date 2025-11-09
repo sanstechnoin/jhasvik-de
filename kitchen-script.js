@@ -79,6 +79,9 @@ function hideNewOrderPopup() {
 // This is the core of the app. It listens for *any* change in the 'orders' collection.
 db.collection("orders").onSnapshot(
     (snapshot) => {
+      if (snapshot.empty) {
+    console.warn("Snapshot is empty — no orders or rule block.");
+  } else {
         // --- Connection Status ---
         console.log("Connected to Firestore!");
         connectionStatusEl.textContent = "Connected";
