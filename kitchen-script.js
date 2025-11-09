@@ -25,6 +25,56 @@ const tableGrid = document.querySelector('.table-grid');
 
 let currentPopupOrder = null; // Holds the data for the order in the popup
 
+// --- 3.5: Setup Clear Buttons and Popup Queue Logic ---
+
+// Inject "Clear" buttons into each table box
+document.querySelectorAll('.table-box').forEach((box, index) => {
+  const tableId = `table-${index + 1}`;
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'clear-table-btn';
+  clearBtn.textContent = 'Clear';
+  clearBtn.onclick = () => clearTable(tableId);
+  box.appendChild(clearBtn);
+});
+
+function clearTable(tableId) {
+  const tableBox = document.getElementById(tableId);
+  const orderList = tableBox.querySelector('.order-list');
+  orderList.innerHTML = '<li class="order-list-empty">Waiting for order...</li>';
+}
+
+// Popup queue logic
+let popupQueue = [];
+
+function showNewOrderPopup(orderData) {
+  popupQueue.push(orderData);
+  if (!currentPopupOrder) displayNextPopup();
+}
+
+function displayNextPopup() {
+  if (popupQueue.length === 0) return;
+
+  currentPopupOrder = popupQueue.shift();
+  const itemsHtml = currentPopupOrder.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('');
+  popupOrderDetails.innerHTML = `<h4>Table ${currentPopupOrder.table}</h4><ul>${itemsHtml}</ul>`;
+  newOrderPopup.classList.remove('hidden');
+
+  const audio = new Audio('notification.mp3');
+  audio.play().catch(e => console.warn("Could not play audio:", e));
+}
+
+acceptOrderBtn.addEventListener('click', () => {
+  const tableBox = document.getElementById(`table-${currentPopupOrder.table}`);
+  updateTableBox(tableBox, currentPopupOrder);
+  hideNewOrderPopup();
+  displayNextPopup();
+});
+
+function hideNewOrderPopup() {
+  newOrderPopup.classList.add('hidden');
+  currentPopupOrder = null;
+}
+
 // --- 4. Main Firestore Listener ---
 // This is the core of the app. It listens for *any* change in the 'orders' collection.
 db.collection("orders").onSnapshot(
@@ -90,20 +140,22 @@ function hideNewOrderPopup() {
 
 // Updates the table tab with the new order
 function updateTableBox(tableBox, orderData) {
-    if (!tableBox) return; // Safety check
-    
-    const orderList = tableBox.querySelector('.order-list');
-    // We don't show prices, as requested
-    let itemsHtml = orderData.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('');
-    
-    orderList.innerHTML = itemsHtml;
-    // Add a 'new' class to flash the box
-    tableBox.classList.add('new-order-flash');
-    setTimeout(() => {
-        tableBox.classList.remove('new-order-flash');
-    }, 2000); // Remove flash after 2 seconds
-}
+  if (!tableBox) return;
 
+  const orderList = tableBox.querySelector('.order-list');
+  const timestamp = new Date().toLocaleTimeString();
+  const itemsHtml = orderData.items.map(item => `<li>${item.quantity}x ${item.name}</li>`).join('');
+
+  const newBlock = document.createElement('li');
+  newBlock.innerHTML = `<strong>${timestamp}</strong><ul>${itemsHtml}</ul>`;
+  orderList.prepend(newBlock);
+
+  // Flash animation
+  tableBox.classList.add('new-order-flash');
+  setTimeout(() => {
+    tableBox.classList.remove('new-order-flash');
+  }, 2000);
+}
 // --- 6. Event Listeners ---
 
 // When the "Accept Order" button is clicked
