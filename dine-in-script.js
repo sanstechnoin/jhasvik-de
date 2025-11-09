@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             table: tableNumber,
             items: itemsOnly,
             status: "new",
-            createdAt: new Date()
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
         };
 
         try {
