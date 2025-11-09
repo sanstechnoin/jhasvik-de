@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhasvik Kitchen Display System</title>
+    <link rel="stylesheet" href="style.css?v=22">
+    <link rel="icon" type="image/png" href="favlogo.png">
+</head>
+<body class="kitchen-body">
+
+    <div id="kitchen-login-overlay" class="kitchen-popup-overlay">
+        <div class="kitchen-popup-box" style="z-index: 9999;">
+            <h3>Kitchen Login</h3>
+            <p style="color: #666; margin-bottom: 20px;">Enter your password to Login.</p>
+            <input type="password" id="kitchen-password" placeholder="Passwort eingeben">
+            <button id="login-button" style="margin-top: 15px;">Login</button>
+            <div id="login-error-message" style="color: #ff4d4d; margin-top: 10px; font-weight: bold; display: none;">Falsches Passwort.</div>
+        </div>
+    </div>
+    <div id="kds-content-wrapper" style="display: none;"> 
+
+        <header class="kitchen-header">
+            <div class="header-logo">
+                <img src="logo.png" alt="Jhasvik Logo">
+                <h1>Kitchen Display System</h1>
+            </div>
+            <div id="connection-status" class="status-disconnected">
+                Connecting...
+            </div>
+        </header>
+
+        <main class="kitchen-main">
+            <div class="table-grid">
+                <div class="table-box" id="table-1">
+                    <div class="table-header">
+                        <h2>Table 1</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="1">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-2">
+                    <div class="table-header">
+                        <h2>Table 2</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="2">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-3">
+                    <div class="table-header">
+                        <h2>Table 3</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="3">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-4">
+                    <div class="table-header">
+                        <h2>Table 4</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="4">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-5">
+                    <div class="table-header">
+                        <h2>Table 5</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="5">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-6">
+                    <div class="table-header">
+                        <h2>Table 6</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="6">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-7">
+                    <div class="table-header">
+                        <h2>Table 7</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="7">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-8">
+                    <div class="table-header">
+                        <h2>Table 8</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="8">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-9">
+                    <div class="table-header">
+                        <h2>Table 9</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="9">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-10">
+                    <div class="table-header">
+                        <h2>Table 10</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="10">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-11">
+                    <div class="table-header">
+                        <h2>Table 11</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="11">Clear</button>
+                </div>
+                
+                <div class="table-box" id="table-12">
+                    <div class="table-header">
+                        <h2>Table 12</h2>
+                        <span class="order-time">--:--</span>
+                    </div>
+                    <ul class="order-list"><li class="order-list-empty">Waiting for order...</li></ul>
+                    <button class="clear-table-btn" data-table="12">Clear</button>
+                </div>
+                </div>
+        </main>
+
+        <div id="new-order-popup-overlay" class="kitchen-popup-overlay hidden">
+            <div class="kitchen-popup-box">
+                <h3>🔔 New Order! 🔔</h3>
+                <div id="popup-order-details">
+                    </div>
+                <button id="accept-order-btn">Accept Order</button>
+            </div>
+        </div>
+        
+    </div>
+    <script src="firebase-config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="kitchen-script.js"></script>
+</body>
+</html>

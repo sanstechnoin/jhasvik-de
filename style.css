@@ -1,0 +1,1234 @@
+/* --- Global Styles & Colors --- */
+:root {
+    --bg-dark: #070f33;      /* Dark blue from PDF background */
+    --card-bg: #111a42;      /* Lighter blue for sections */
+    --gold: #f38f33;        /* Orange/gold from PDF logo */
+    --text-main: #f0f0f0;   /* Main text color (white) */
+    --text-subtle: #aaa;
+    --border-color: #333d6b;  /* A border color that fits the blue */
+    --veg-icon: #32c832;      /* Green for veg */
+    --non-veg-icon: #e04040;  /* Red for non-veg */
+}
+html { scroll-behavior: smooth; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* This main is now for the content area */
+main { 
+    max-width: 800px; 
+    margin: 0 auto; /* This centers the main content */
+    padding: 10px; 
+    width: 100%; 
+    box-sizing: border-box;
+}
+main.table-selection-main {
+    flex-grow: 1;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+h3 { font-size: 1.3em; color: var(--text-main); margin-top: 15px; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* --- Header --- */
+header {
+    background-color: #fff; /* White header background */
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Header is on top */
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-bottom: 1px solid #eee;
+}
+.header-content-wrapper { max-width: 800px; margin: 0 auto; padding: 0 10px; }
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.header-content a { line-height: 0; border: none; text-decoration: none; }
+.logo { 
+    max-width: 150px;
+    height: auto; 
+    flex-shrink: 0; 
+}
+.contact-info { 
+    text-align: right; 
+    color: #333; /* Dark text for white background */
+}
+.contact-info strong { 
+    font-size: 0.9em; 
+    color: var(--gold); 
+    display: block; 
+}
+.contact-info p { 
+    margin: 0; 
+    font-size: 0.8em; 
+    line-height: 1.3; 
+    color: #555; /* Dark text */
+}
+.phone-link {
+    display: block;
+    margin-top: 4px; /* Added a little more space */
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.8em; /* CHANGED: Was 0.9em, now matches address font size */
+    line-height: 1.4; /* Adjusted line height */
+}
+.phone-link:hover { color: var(--gold); }
+.phone-link .fa-phone {
+    margin-right: 6px;
+    font-size: 1.2em; /* CHANGED: Was 0.9em, made icon bigger */
+    vertical-align: middle; /* ADDED: To better align the bigger icon */
+}
+
+/* --- Marquee Bar --- */
+@keyframes marquee {
+    0%   { transform: translateX(100%); }
+    90%  { transform: translateX(-100%); }
+    100% { transform: translateX(-100%); }
+}
+#marquee-container {
+    background-color: var(--card-bg); /* Kept this dark */
+    color: var(--gold);
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+#marquee-container.hidden { display: none; }
+#marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 50s linear infinite;
+    margin: 0;
+    font-weight: bold;
+}
+#marquee-text.paused {
+    animation-play-state: paused;
+}
+
+/* --- NEW STICKY HORIZONTAL NAV BAR --- */
+header nav {
+    display: flex;
+    position: sticky; 
+    top: 90px; /* Fallback value, script.js will correct this */
+    background-color: #0d163d; /* Dark blue background */
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    z-index: 99; 
+}
+.nav-wrapper {
+    max-width: 800px; /* This centers the nav content */
+    margin: 0 auto;
+    /* padding: 0 10px; <-- This is removed */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative; /* <-- This is NEW */
+}
+.nav-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px; /* Width of the fade */
+    background: linear-gradient(to right, #0d163d, transparent); /* Fades from nav-bar-blue to transparent */
+    pointer-events: none; /* Lets you click links underneath */
+    z-index: 5;
+}
+.nav-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px; /* Width of the fade */
+    background: linear-gradient(to left, #0d163d, transparent); /* Fades from nav-bar-blue to transparent */
+    pointer-events: none;
+    z-index: 5;
+}
+.nav-links-container {
+    display: flex;
+    flex-grow: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; 
+    padding: 10px 15px; /* <-- This padding creates space for the fade */
+}
+.nav-links-container::-webkit-scrollbar { display: none; } 
+header nav a {
+    flex: 0 0 auto;
+    padding: 8px 15px;
+    margin: 0 5px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    transition: background-color 0.2s, color 0.2s;
+}
+header nav a:hover, 
+header nav a:active {
+    background-color: var(--gold);
+    color: #000;
+}
+
+/* --- END OF NEW NAV BAR STYLES --- */
+
+
+/* --- Menu Sections & Items --- */
+section {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+li:last-child { border-bottom: none; }
+.item { display: flex; flex-direction: column; padding-right: 15px; flex-grow: 1; }
+.description { font-size: 0.9em; color: var(--text-subtle); font-style: italic; }
+
+/* --- Price & Action Button Group --- */
+.price-action {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--gold);
+    white-space: nowrap;
+    min-width: 50px;
+    text-align: right;
+    margin-right: 10px;
+}
+.add-btn {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.1s ease;
+    line-height: 25px;
+    padding: 0;
+}
+.add-btn:active { transform: scale(0.9); }
+
+/* --- New Menu Item Quantity Controls --- */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    margin-right: 5px; 
+}
+.quantity-controls.hidden {
+    display: none !important;
+}
+.item-qty {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--text-main);
+    min-width: 15px;
+    text-align: center;
+}
+.menu-btn-minus {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 25px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+    transition: transform 0.1s ease;
+}
+.menu-btn-minus:active {
+    transform: scale(0.9);
+}
+
+/* --- Floating Cart Button --- */
+#cart-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+#cart-toggle-btn.hidden { display: none; }
+.cart-icon { font-size: 1.5em; margin-right: 8px; }
+#cart-item-count {
+    background-color: #fff;
+    color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+}
+
+/* --- Cart Modal --- */
+#cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+#cart-overlay.hidden { display: none; }
+#cart-modal {
+    background-color: var(--card-bg);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    color: var(--text-main);
+}
+#cart-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 2em;
+    cursor: pointer;
+}
+#cart-modal h2 { margin-top: 0; color: var(--gold); }
+#cart-items-container {
+    max-height: 250px;
+    overflow-y: auto;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin: 15px 0;
+    padding: 10px 0;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+.cart-item-name { 
+    font-weight: bold; 
+    flex-grow: 1; 
+    padding-right: 10px;
+}
+.cart-item-controls { 
+    display: flex; 
+    align-items: center; 
+    flex-shrink: 0;
+}
+.cart-item-controls button {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 25px;
+}
+.cart-item-controls span { 
+    margin: 0 10px; 
+    min-width: 20px;
+    text-align: center;
+}
+.cart-item-price { 
+    font-weight: bold; 
+    flex-shrink: 0;
+    min-width: 60px;
+    text-align: right;
+    margin-left: 10px;
+}
+
+/* --- Coupon & Summary --- */
+#coupon-hint {
+    font-size: 0.9em;
+    color: var(--text-subtle);
+    font-style: italic;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+#coupon-hint.hidden { display: none; }
+
+.coupon-area {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    align-items: stretch;
+}
+.coupon-area label { display: none; }
+.coupon-area input {
+    flex-grow: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: #333;
+    color: var(--text-main);
+}
+#apply-coupon-btn {
+    background-color: #555;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    padding: 0 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#apply-coupon-btn:hover { background-color: #666; }
+#coupon-message {
+    font-size: 0.9em;
+    margin-top: 5px;
+    height: 1.2em;
+}
+#coupon-message.success { color: #25D366; }
+#coupon-message.error { color: #ff4d4d; }
+
+#cart-summary {
+    margin-top: 15px;
+    text-align: right;
+}
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+#summary-discount {
+    color: #25D366;
+    font-size: 1em;
+}
+#summary-total {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--gold);
+    border-top: 1px dashed var(--gold);
+    padding-top: 10px;
+    margin-top: 10px;
+}
+#summary-total span:first-child { text-align: left; }
+
+/* --- Checkout Form --- */
+#order-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+#order-form input,
+#order-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: #333;
+    color: var(--text-main);
+    font-family: inherit;
+    resize: vertical;
+}
+
+/* --- Consent Checkbox --- */
+.consent-checkbox {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-width: 100%;
+    gap: 10px;
+}
+.consent-checkbox input {
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+.consent-checkbox label {
+    font-size: 0.9em;
+    font-weight: normal;
+    color: var(--text-subtle);
+    line-height: 1.4;
+    max-width: calc(100% - 40px);
+}
+.consent-checkbox a {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
+.checkout-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+.checkout-buttons button {
+    padding: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.checkout-buttons button:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.checkout-email { background-color: var(--gold); color: #000; }
+.checkout-whatsapp { background-color: #25D366; color: #fff; }
+.checkout-kitchen {
+    background-color: var(--card-bg); /* Dark blue */
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}
+.checkout-kitchen:hover {
+    background-color: #0d163d;
+}
+
+/* --- Order Confirmation Screen --- */
+#order-confirmation h2 { color: var(--gold); }
+#order-confirmation h3 { font-size: 1.1em; color: var(--text-main); }
+#confirmation-summary {
+    background-color: var(--bg-dark);
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+#confirmation-close-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* --- Allergen Footer --- */
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: var(--text-subtle);
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+/* --- Site Credit Footer --- */
+.site-credit-footer {
+    background-color: var(--card-bg); /* CHANGED: Back to blue */
+    color: var(--text-subtle);       /* CHANGED: Light text */
+    padding: 10px 20px; /* REDUCED padding for height */
+    font-size: 0.8em;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Remove default margins on all p tags inside */
+.site-credit-footer p {
+    margin: 4px 0; /* Adds a little space between lines */
+}
+
+/* This creates the Left/Right layout for line 1 */
+.footer-line-one {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Stacks on very small screens */
+    gap: 10px;
+}
+
+.footer-links {
+    text-align: left;
+    flex: 1; /* Takes up available space */
+}
+
+.footer-copyright {
+    text-align: right;
+    flex: 1; /* Takes up available space */
+}
+
+.footer-developer {
+    text-align: center;
+    margin-top: 8px; /* Adds space above this line */
+}
+
+/* Style all links in the footer */
+.site-credit-footer a {
+    color: var(--gold); /* All links are gold as requested */
+    text-decoration: none;
+}
+.site-credit-footer a:hover {
+    text-decoration: underline;
+}
+
+/* On mobile, stack everything centrally */
+@media (max-width: 600px) {
+    .footer-line-one {
+        flex-direction: column;
+        gap: 0;
+    }
+    .footer-links, .footer-copyright {
+        text-align: center;
+        flex: auto; /* Reset flex */
+    }
+}
+
+/* --- PROMO POPUP STYLES --- */
+#popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+#popup-box {
+    background: #fff;
+    color: #333;
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    max-width: 400px;
+    width: 100%;
+}
+#popup-box h3 {
+    color: #000;
+    margin-top: 0;
+}
+#close-popup {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+#close-popup:hover {
+    background-color: #b8860b;
+}
+
+/* --- Legal Page Styles --- */
+.legal-page {
+    line-height: 1.8;
+}
+.legal-page h3 {
+    margin-top: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+.legal-page ul {
+    padding-left: 20px;
+    list-style: disc;
+}
+.data-point {
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-left: 3px solid var(--gold);
+}
+.data-point strong {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--text-main);
+}
+address {
+    font-style: normal;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--card-bg);
+    border-radius: 4px;
+}
+
+/* --- NEW: Dine-in Table Clock Styles --- */
+.table-selection-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+.table-circle-container {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: var(--card-bg);
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: -30px;
+    transform-origin: 50% 50%;
+    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle)));
+}
+.table-btn:hover {
+    background-color: var(--gold);
+    color: #000;
+    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.1);
+}
+.table-btn.selected,
+.table-btn.selected:hover {
+    background-color: var(--gold);
+    color: #000;
+    transform: rotate(var(--angle)) translate(150px) rotate(calc(-1 * var(--angle))) scale(1.1);
+}
+.center-food-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    z-index: 1;
+}
+/* --- END Dine-in Styles --- */
+
+
+/* --- PC/Large Screen Layout --- */
+/* === FIX: Changed from 1024px to 901px === */
+@media (min-width: 901px) { 
+    main { max-width: 800px; } 
+    .header-content-wrapper { max-width: 800px; }
+    .nav-wrapper { max-width: 800px; }
+    .header-content { padding: 20px 0; }
+    .logo { max-width: 180px; }
+    .contact-info strong { font-size: 1.1em; }
+    .contact-info p { font-size: 0.9em; }
+    .phone-link { font-size: 1.1em; }
+    
+    /* This part centers the links and hides the arrows on desktop */
+    .nav-wrapper {
+        justify-content: center;
+    }
+    .nav-links-container {
+        overflow-x: visible;
+        flex-grow: 0; /* This lets the container shrink to fit links */
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 5px 0;
+        gap: 10px;
+    }
+    .header nav a {
+        padding: 8px 15px;
+        margin: 0; /* Remove mobile margin */
+        font-size: 0.9em;
+    }
+    .table-circle-container {
+        width: 450px;
+        height: 450px;
+    }
+    .table-btn {
+        transform: rotate(var(--angle)) translate(210px) rotate(calc(-1 * var(--angle)));
+    }
+    .table-btn:hover {
+        transform: rotate(var(--angle)) translate(210px) rotate(calc(-1 * var(--angle))) scale(1.1);
+    }
+    .table-btn.selected,
+    .table-btn.selected:hover {
+        transform: rotate(var(--angle)) translate(210px) rotate(calc(-1 * var(--angle))) scale(1.1);
+    }
+    .center-food-image {
+        width: 220px;
+        height: 220px;
+    }
+}
+/* --- NEW Menu Item Icons --- */
+.item-details {
+    display: flex;
+    flex-direction: column;
+}
+.item-details strong {
+    display: flex; 
+    align-items: center; 
+    line-height: 1.3; 
+    font-size: 1.1em;
+    color: var(--text-main);
+}
+.item-icon {
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    margin-right: 5px; 
+    color: #fff;
+    flex-shrink: 0;
+}
+.item-icon.veg {
+    background-color: var(--veg-icon);
+}
+.item-icon.non-veg {
+    background-color: var(--non-veg-icon);
+}
+/* --- End of new block --- */
+
+/* --- Mobile / Tablet Media Query --- */
+@media (max-width: 900px) {
+    /* On small screens, the nav links use the default styles,
+      which are full-width and scrollable.
+      No extra rules are needed.
+    */
+}
+/* --- NEW: Chef Icon Style --- */
+.item-icon.chef {
+    background-color: transparent; /* It has no background */
+    color: var(--gold); /* Orange/gold, as requested */
+    font-size: 1.1em; /* Make it slightly bigger than the V/NV */
+    /* We use an emoji, so no text is needed */
+}
+
+/* --- NEW: Allergen Superscript Style --- */
+.allergen-sup {
+    font-size: 0.7em;
+    vertical-align: super;
+    color: var(--text-subtle); /* Muted color so it's not distracting */
+    margin-left: 5px;
+    font-weight: normal; /* Don't make the allergens bold */
+    letter-spacing: 0.5px;
+}
+
+/* ---
+   NEW KITCHEN DISPLAY SYSTEM (KDS) STYLES
+--- */
+
+.kitchen-body {
+    background-color: var(--bg-dark);
+}
+
+/* Around line 550 in your existing CSS */
+.kitchen-header {
+    background-color: var(--card-bg);
+    color: var(--gold);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--gold);
+
+    /* CRITICAL FIX FOR STICKY HEADER */
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+.kitchen-header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#connection-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.status-disconnected {
+    background-color: #8B0000; /* Dark Red */
+    color: white;
+}
+.status-connected {
+    background-color: #006400; /* Dark Green */
+    color: white;
+}
+
+.kitchen-main {
+    padding: 10px;
+}
+
+.table-grid {
+    display: grid;
+    /* This creates 4 columns on desktop */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+}
+
+.table-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.table-box h2 {
+    color: var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.table-box .order-list {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    flex-grow: 1; /* Makes box fill height */
+    
+    /* This is the scroller you wanted */
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.table-box .order-list li {
+    padding: 0;
+    border-bottom: none;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* This is the "Waiting..." text */
+.table-box .order-list li:first-child {
+    color: var(--text-subtle);
+    font-style: italic;
+}
+
+/* New Order Popup Styles */
+/* --- NEW FIX: KDS Login Box Styling and Click Fix --- */
+
+/* Force the KDS content wrapper to be full screen for login */
+.kitchen-popup-overlay {
+    position: fixed; /* CRITICAL FIX: Position fixed to cover the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9); 
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;   /* Centers vertically */
+    z-index: 5000; 
+    padding: 20px;
+    box-sizing: border-box;
+}
+.kitchen-popup-overlay.hidden {
+    display: none;
+}
+
+.kitchen-popup-box {
+    background: var(--card-bg); /* Dark blue background */
+    color: var(--text-main);
+    padding: 30px; /* Increased padding */
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    width: 100%;
+    z-index: 5001; /* Must be higher than overlay */
+    
+    /* Ensure no flex-item margins interfere */
+    margin: 0; 
+}
+
+.kitchen-popup-box h3 {
+    color: var(--gold);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+#kitchen-password {
+    background-color: var(--bg-dark); /* Dark input field */
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    width: 90%; /* Make input fit nicely */
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+#login-button {
+    background-color: var(--gold); /* Gold button */
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+#login-button:hover {
+    background-color: #b8860b;
+}
+
+/* --- END FIX --- */
+
+#popup-order-details {
+    text-align: left;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#popup-order-details h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.4em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+#popup-order-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+#accept-order-btn {
+    background-color: #006400; /* Dark Green */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+#accept-order-btn:hover {
+    background-color: #008000; /* Brighter Green */
+}
+
+/* Mobile responsive grid */
+@media (max-width: 1200px) {
+    .table-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    .table-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small tablet */
+    }
+}
+
+@media (max-width: 500px) {
+    .table-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+}
+/* Add this to your style.css */
+@keyframes newOrderFlash {
+    0% { background-color: var(--card-bg); }
+    50% { background-color: var(--gold); }
+    100% { background-color: var(--card-bg); }
+}
+
+.table-box.new-order-flash {
+    animation: newOrderFlash 1s ease-in-out;
+}
+
+/* --- Add this to your KDS STYLES block in style.css --- */
+
+.kitchen-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo img {
+    height: 40px; /* Or whatever size you like */
+    width: auto;
+}
+
+.kitchen-header h1 {
+    font-size: 1.2em; /* Make room for logo */
+}
+
+/* New Table Box Header */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gold);
+    padding: 10px 15px;
+}
+
+.table-header h2 {
+    color: var(--gold);
+    margin: 0;
+    font-size: 1.2em;
+    border-bottom: none; /* Remove old border */
+    padding: 0;
+}
+
+.order-time {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: var(--text-subtle);
+}
+
+/* "Clear Order" Button */
+.clear-table-btn {
+    background-color: #8B0000; /* Dark Red */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom-left-radius: 8px; /* Match box corner */
+    border-bottom-right-radius: 8px; /* Match box corner */
+    transition: background-color 0.2s;
+}
+.clear-table-btn:hover {
+    background-color: #a10000; /* Brighter Red */
+}
+
+/* This is the "Waiting..." text */
+.order-list-empty {
+    color: var(--text-subtle);
+    font-style: italic;
+    padding: 15px;
+}
+
+/* This styles the list *only* when it has items */
+.table-box .order-list {
+    padding: 0;
+}
+.table-box .order-list li {
+    padding: 5px 15px; /* Add padding to items */
+    border-bottom: 1px dashed var(--border-color); /* Separate items */
+}
+.table-box .order-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- CRITICAL FIX FOR KDS GRID CENTERING AND VISIBILITY --- */
+
+/* 1. KDS Grid Centering */
+#kds-content-wrapper {
+    width: 100%;
+    max-width: 1200px; /* Max width for the grid */
+    margin: 0 auto; /* Centers the KDS content horizontally */
+    margin-top: 0;
+}
+
+/* 2. Login Screen Centering (Uses fixed positioning so it doesn't rely on body flex) */
+#kitchen-login-overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;   /* Centers vertically */
+    z-index: 5000; 
+    background: rgba(0, 0, 0, 0.9);
+}
+
