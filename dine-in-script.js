@@ -1,11 +1,11 @@
 // --- 1. YOUR FIREBASE CONFIG ---
 const firebaseConfig = {
-  apiKey: "AIzaSyCy6yL6CMkKr3WiuZjpmRJckMxTCJ2uScw",
-  authDomain: "jhasvik-menu.firebaseapp.com",
-  projectId: "jhasvik-menu",
-  storageBucket: "jhasvik-menu.firebasestorage.app",
-  messagingSenderId: "290491779981",
-  appId: "1:290491779981:web:84b8c3f81a0b154f65cbc4"
+  apiKey: "AIzaSyCV6u4t8vLDbrEH_FsBrZHXsG8auh-gOP8",
+    authDomain: "jhasvik-de.firebaseapp.com",
+    projectId: "jhasvik-de",
+    storageBucket: "jhasvik-de.firebasestorage.app",
+    messagingSenderId: "415679545793",
+    appId: "1:415679545793:web:880c5963d930f6ea4bef40"
 };
 // --- END OF FIREBASE CONFIG ---
 
