@@ -1,6 +1,6 @@
 // --- 1. YOUR FIREBASE CONFIG ---
 const firebaseConfig = {
-  apiKey: "AIzaSyAMv7cC3Fi-bcGl8HWv6jIkATbR2IHYFys",
+  apiKey: "AIzaSyCy6yL6CMkKr3WiuZjpmRJckMxTCJ2uScw",
   authDomain: "jhasvik-menu.firebaseapp.com",
   projectId: "jhasvik-menu",
   storageBucket: "jhasvik-menu.firebasestorage.app",
