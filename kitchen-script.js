@@ -1,5 +1,13 @@
-// --- 1. FIREBASE CONFIG IS NOW LOADED FROM external firebase-config.js ---
-// The data for firebaseConfig is now available globally.
+// --- 1. YOUR FIREBASE CONFIG IS NOW EMBEDDED HERE (CRITICAL FIX) ---
+const firebaseConfig = {
+  apiKey: "AIzaSyCV6u4t8vLDbrEH_FsBrZHXsG8auh-gOP8",
+    authDomain: "jhasvik-de.firebaseapp.com",
+    projectId: "jhasvik-de",
+    storageBucket: "jhasvik-de.firebasestorage.app",
+    messagingSenderId: "415679545793",
+    appId: "1:415679545793:web:880c5963d930f6ea4bef40"
+};
+// --- END OF EMBEDDED CONFIG ---
 
 // --- 2. Initialize Firebase ---
 firebase.initializeApp(firebaseConfig);
@@ -7,9 +15,8 @@ const db = firebase.firestore();
 const connectionStatusEl = document.getElementById('connection-status');
 const audio = new Audio('notification.mp3'); 
 
-
 // --- Global Variable Definitions ---
-const KITCHEN_PASSWORD = "test1"; // <-- SET YOUR SECRET PASSWORD HERE!
+const KITCHEN_PASSWORD = "jhasvik-kitchen-pro"; 
 let newOrderQueue = []; 
 let currentPopupOrderDoc = null; 
 let isPopupActive = false;
@@ -27,11 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const popupOrderDetails = document.getElementById('popup-order-details');
     const acceptOrderBtn = document.getElementById('accept-order-btn');
 
-
     // --- 4. Kitchen State Management ---
 
     function grantAccess() {
-        localStorage.setItem('kds_session', KITCHEN_PASSWORD); // Set session on success
+        localStorage.setItem('kds_session', KITCHEN_PASSWORD);
         loginOverlay.style.display = 'none';
         kdsContentWrapper.style.display = 'block'; 
         startKDSListeners();
@@ -45,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- CRITICAL FIX: The Listener is attached and guaranteed to execute ---
+    // --- Login Listener ---
     if (loginButton) {
         loginButton.addEventListener('click', () => {
             if (passwordInput.value === KITCHEN_PASSWORD) {
@@ -57,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
 
     // --- 5. KDS Initialization (Starts AFTER successful login) ---
 
@@ -121,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // --- 7. Order Handling Functions (Popup and UI Update) ---
+    // --- 6. Order Handling Functions (Popup and UI Update) ---
 
     function showNextOrderInPopup() {
         if (isPopupActive || newOrderQueue.length === 0) {
