@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhasvik Kitchen Display</title>
+    <link rel="stylesheet" href="style.css?v=22">
+    <link rel="icon" type="image/png" href="favlogo.png">
+</head>
+<body class="kitchen-body">
+
+    <header class="kitchen-header">
+        <h1>Jhasvik Kitchen Display</h1>
+        <div id="connection-status" class="status-disconnected">
+            Connecting...
+        </div>
+    </header>
+
+    <main class="kitchen-main">
+        <div class="table-grid">
+            <div class="table-box" id="table-1">
+                <h2>Table 1</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-2">
+                <h2>Table 2</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-3">
+                <h2>Table 3</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-4">
+                <h2>Table 4</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-5">
+                <h2>Table 5</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-6">
+                <h2>Table 6</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-7">
+                <h2>Table 7</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-8">
+                <h2>Table 8</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-9">
+                <h2>Table 9</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-10">
+                <h2>Table 10</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-11">
+                <h2>Table 11</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+            <div class="table-box" id="table-12">
+                <h2>Table 12</h2>
+                <ul class="order-list"><li>Waiting for order...</li></ul>
+            </div>
+        </div>
+    </main>
+
+    <div id="new-order-popup-overlay" class="kitchen-popup-overlay hidden">
+        <div class="kitchen-popup-box">
+            <h3>🔔 New Order! 🔔</h3>
+            <div id="popup-order-details">
+                </div>
+            <button id="accept-order-btn">Accept Order</button>
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="kitchen-script.js"></script>
+
+</body>
+</html>
