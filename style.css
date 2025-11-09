@@ -930,10 +930,6 @@ address {
   border-radius: 4px;
   font-weight: bold;
   z-index: 1000;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .status-disconnected {
@@ -1242,5 +1238,6 @@ address {
     z-index: 5000; 
     background: rgba(0, 0, 0, 0.9);
 }
+
 
 
